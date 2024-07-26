@@ -1,5 +1,7 @@
-package br.com.lucassousa;
+package br.com.lucassousa.backend.job;
 
+import br.com.lucassousa.backend.domain.Transacao;
+import br.com.lucassousa.backend.domain.TrasacaoCNAB;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;

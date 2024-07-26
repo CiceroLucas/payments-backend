@@ -1,4 +1,4 @@
-package br.com.lucassousa;
+package br.com.lucassousa.backend.domain;
 
 import java.math.BigDecimal;
 
