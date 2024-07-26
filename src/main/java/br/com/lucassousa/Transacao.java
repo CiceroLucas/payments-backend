@@ -19,10 +19,10 @@ public record Transacao(
 
     public Transacao withValor(BigDecimal valor) {
         return new Transacao(
-                this.id(), this.tipo(), this.data(),
+                id, tipo, data,
                 valor,
-                this.cpf(), this.cartao(), this.hora(),
-                this.donoDaLoja(), this.nomeDaLoja());
+                cpf, cartao, hora,
+                donoDaLoja, nomeDaLoja);
     }
 
     public Transacao withData(String data) throws ParseException {
@@ -30,10 +30,10 @@ public record Transacao(
         var date = dateFormat.parse(data);
 
         return new Transacao(
-                this.id(), this.tipo(), new Date(date.getTime()),
-                this.valor,
-                this.cpf(), this.cartao(), this.hora(),
-                this.donoDaLoja(), this.nomeDaLoja());
+                id, tipo, new Date(date.getTime()),
+                valor,
+                cpf, cartao, hora,
+                donoDaLoja, nomeDaLoja);
     }
 
     public Transacao withHora(String hora) throws ParseException {
@@ -41,9 +41,9 @@ public record Transacao(
         var date = dateFormat.parse(hora);
 
         return new Transacao(
-                this.id(), this.tipo(), this.data(),
-                this.valor(),
-                this.cpf(), this.cartao(), new Time(date.getTime()),
-                this.donoDaLoja(), this.nomeDaLoja());
+                id, tipo, data,
+                valor,
+                cpf, cartao, new Time(date.getTime()),
+                donoDaLoja, nomeDaLoja);
     }
 }
