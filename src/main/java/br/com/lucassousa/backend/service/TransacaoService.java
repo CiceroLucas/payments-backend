@@ -1,5 +1,6 @@
 package br.com.lucassousa.backend.service;
 
+import br.com.lucassousa.backend.domain.TipoTransacao;
 import br.com.lucassousa.backend.domain.Transacao;
 import br.com.lucassousa.backend.domain.TransacaoReport;
 import br.com.lucassousa.backend.repository.TransacaoRepository;
@@ -24,12 +25,13 @@ public class TransacaoService {
 
         transacoes.forEach(transacao -> {
             String nomeDaLoja = transacao.nomeDaLoja();
-            BigDecimal valor = transacao.valor();
+            var tipoTransacao = TipoTransacao.findByTipo(transacao.tipo());
+            BigDecimal valor = transacao.valor().multiply(tipoTransacao.getSinal());
 
             reportMap.compute(nomeDaLoja, (key, existingReport) -> {
                 var report = (existingReport != null) ? existingReport :
                         new TransacaoReport(key , BigDecimal.ZERO, new ArrayList<>());
-                return report.addTotal(valor).addTransacao(transacao);
+                return report.addTotal(valor).addTransacao(transacao.withValor(valor));
             });
         });
         return new ArrayList<>(reportMap.values());
