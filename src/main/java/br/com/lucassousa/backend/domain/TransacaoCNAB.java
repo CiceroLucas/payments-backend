@@ -2,7 +2,7 @@ package br.com.lucassousa.backend.domain;
 
 import java.math.BigDecimal;
 
-public record TrasacaoCNAB(
+public record TransacaoCNAB(
         Integer tipo,
         String data,
         BigDecimal valor,
