@@ -1,4 +1,4 @@
-package br.com.lucassousa;
+package br.com.lucassousa.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

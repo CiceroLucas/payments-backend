@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 
 public record Transacao(
         @Id Long id,
-        Integer tipo,
+        int tipo,
         Date data,
         BigDecimal valor,
         Long cpf,
