@@ -1,7 +1,7 @@
 package br.com.lucassousa.backend.job;
 
 import br.com.lucassousa.backend.domain.Transacao;
-import br.com.lucassousa.backend.domain.TrasacaoCNAB;
+import br.com.lucassousa.backend.domain.TransacaoCNAB;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -22,7 +22,6 @@ import org.springframework.batch.item.file.transform.Range;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -49,9 +48,9 @@ public class BatchConfig {
     }
 
     @Bean
-    Step step (ItemReader<TrasacaoCNAB> reader, ItemProcessor<TrasacaoCNAB, Transacao> processor, ItemWriter<Transacao> writer) {
+    Step step (ItemReader<TransacaoCNAB> reader, ItemProcessor<TransacaoCNAB, Transacao> processor, ItemWriter<Transacao> writer) {
         return new StepBuilder("step", jobRepository)
-                .<TrasacaoCNAB, Transacao>chunk(1000, transactionManager)
+                .<TransacaoCNAB, Transacao>chunk(1000, transactionManager)
                 .reader(reader).processor(processor)
                 .writer(writer)
                 .build();
@@ -59,9 +58,9 @@ public class BatchConfig {
 
     @StepScope
     @Bean
-    FlatFileItemReader<TrasacaoCNAB> reader (
+    FlatFileItemReader<TransacaoCNAB> reader (
             @Value("#{jobParameters['cnabFile']}") Resource resource) {
-        return new FlatFileItemReaderBuilder<TrasacaoCNAB>()
+        return new FlatFileItemReaderBuilder<TransacaoCNAB>()
                 .name("reader")
                 .resource(resource)
                 .fixedLength()
@@ -77,12 +76,12 @@ public class BatchConfig {
                         "cartao", "hora",
                         "donoDaLoja", "nomeDaLoja"
                 )
-                .targetType(TrasacaoCNAB.class)
+                .targetType(TransacaoCNAB.class)
                 .build();
     }
 
     @Bean
-    ItemProcessor<TrasacaoCNAB, Transacao> processor () {
+    ItemProcessor<TransacaoCNAB, Transacao> processor () {
         return item -> {
             var transacao = new Transacao(
                     null, item.tipo(), null,
